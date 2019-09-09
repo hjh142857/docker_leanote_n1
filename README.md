@@ -5,6 +5,9 @@
 ```
 docker run -d --name leanote --restart=always -m 512M -e "SITEURL=[访问网址/IP+端口]"-p 8000:9000 -v [宿主机储存路径]/leanotedata:/data hjh142857/leanote_n1
 ```
+admin / abc123 (管理员用户)
+demo@leanote.com / demo@leanote.com (体验用户)
+
 ## 说明Description
 * 自动备份说明
   * 备份路径设置在`[宿主机储存路径]/leanotedata/backup`下
