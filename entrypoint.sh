@@ -43,8 +43,8 @@ HOUR=`date "+%-H"`
 MIN=`date "+%-M"`
 SEC=`date "+%-S"`
 seconds=$((10#24*3600-${HOUR}*3600-${MIN}*60-${SEC}))
+echo ++++++++Start Counting $secents s++++++++
 sleep $seconds
-echo ++++++++Star Counting++++++++
 while true; do
         TIME=`date "+%Y%m%d_%H%M"`
         mongodump -h 127.0.0.1:27017 -d leanote -o $BACKUP_DIR/
