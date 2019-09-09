@@ -23,7 +23,7 @@ docker run -d --name leanote --restart=always -m 512M --cpus=1 -e "SITEURL=[访�
   * **必填ENV**SITEURL，填写为你的访问网址/IP+端口，需要注意的是，填写的是各种端口转发之后的网址+端口，比如用nginx转发到8080端口，即填写http://abc.com:8080 ，如按照上述命令无其他端口转发请填写`http://url:8000`即可。**不正确的填写会导致客户端无法同步图片等附件**。
   * 建议添加ENV LANG`-e "LANG=zh-cn"` 修改默认语言为中文
   * 特殊情况ENV ADMINUSER`-e ADMINUSER＝你的user id`，详细见[官方文档][1]
-  >为Leanote指定超级管理员帐户(admin用户)
+     >为Leanote指定超级管理员帐户(admin用户)
 Leanote默认超级管理员为admin, 且一旦不小心修改了username则不能改回. 此时可修改配置文件app.conf, 比如指定用户life为超级管理员
 
 * 请注意**MongoDB的27017端口务必不暴露在公网**，本镜像未设置Mongo用户名密码
