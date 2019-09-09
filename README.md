@@ -17,11 +17,11 @@ docker run -d --name leanote --restart=always -m 512M -e "SITEURL=[访问网址/
 * 请注意**Mongo的27017端口务必不暴露在公网**，本镜像未设置Mongo用户名密码
 
 ## 目录结构
+```
 [宿主机储存路径]/leanotedata 
-|
-|----backup     备份文件夹
-|----configdb   MongoDB目录，为空，不可删除
-|----db         MongoDB目录，为空，不可删除
-|----leanote    leanote目录，还原Leanote时即还原到此目录下
-  
- 
+  |
+  |----backup     备份文件夹
+  |----configdb   MongoDB目录，为空，不可删除
+  |----db         MongoDB目录，为空，不可删除
+  |----leanote    leanote目录，还原Leanote时即还原到此目录下
+```
