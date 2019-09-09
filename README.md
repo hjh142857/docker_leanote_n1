@@ -25,7 +25,6 @@ docker run -d --name leanote --restart=always -m 512M --cpus=1 -e "SITEURL=[访�
   * 特殊情况ENV ADMINUSER`-e ADMINUSER＝你的user id`，详细见[官方文档][1]
   >为Leanote指定超级管理员帐户(admin用户)
 Leanote默认超级管理员为admin, 且一旦不小心修改了username则不能改回. 此时可修改配置文件app.conf, 比如指定用户life为超级管理员
-  [1]:https://github.com/leanote/leanote/wiki/QA#%E4%B8%BAleanote%E6%8C%87%E5%AE%9A%E8%B6%85%E7%BA%A7%E7%AE%A1%E7%90%86%E5%91%98%E5%B8%90%E6%88%B7admin%E7%94%A8%E6%88%B7
 
 * 请注意**MongoDB的27017端口务必不暴露在公网**，本镜像未设置Mongo用户名密码
 
@@ -38,3 +37,4 @@ Leanote默认超级管理员为admin, 且一旦不小心修改了username则不�
   |----db         MongoDB目录，为空，不可删除
   |----leanote    leanote目录，还原Leanote时即还原到此目录下
 ```
+[1]: https://github.com/leanote/leanote/wiki/QA#%E4%B8%BAleanote%E6%8C%87%E5%AE%9A%E8%B6%85%E7%BA%A7%E7%AE%A1%E7%90%86%E5%91%98%E5%B8%90%E6%88%B7admin%E7%94%A8%E6%88%B7
