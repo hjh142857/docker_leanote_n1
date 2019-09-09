@@ -1,5 +1,5 @@
 # docker_leanote_n1
-基于ARM的leanote的docker，外置存储，自动定时备份
+基于ARM的leanote的docker，外置存储，自动定时备份。N1盒子小钢炮环境下测试通过，理论arm通用。
 
 ## 使用Usage
 ```
