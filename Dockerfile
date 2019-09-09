@@ -21,7 +21,7 @@ RUN tar zxf /data/leanote-linux-arm-v2.6.1.bin.tar.gz -C /data/; \
         rm -f /etc/timezone; \
         echo "Asia/Shanghai" >> /etc/timezone; \
         # Backup DIR
-        mkdir /data/backup
+        mkdir /data/backup; \
         # Script Initializing
         chmod a+x /usr/local/bin/entrypoint.sh
 
