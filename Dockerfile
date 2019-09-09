@@ -1,4 +1,4 @@
-FROM arm64v8/mongo
+FROM mongo@24a5c3cc152c
 
 # Files Preparing
 COPY leanote-linux-arm-v2.6.1.bin.tar.gz /data/
