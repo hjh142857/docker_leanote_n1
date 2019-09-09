@@ -42,8 +42,8 @@ DAYS=7
 HOUR=`date "+%-H"`
 MIN=`date "+%-M"`
 SEC=`date "+%-S"`
-seconds=$((10#24*3600-${HOUR}*3600-${MIN}*60-${SEC}))
-echo ++++++++Start Counting $secents s++++++++
+seconds=$((10#86400-${HOUR}*3600-${MIN}*60-${SEC}))
+echo ++++++++Start Counting $seconds s++++++++
 sleep $seconds
 while true; do
         TIME=`date "+%Y%m%d_%H%M"`
@@ -55,7 +55,7 @@ while true; do
         HOUR=`date "+%H"`
         MIN=`date "+%M"`
         SEC=`date "+%S"`
-        seconds=$((10#24*3600-${HOUR}*3600-${MIN}*60-${SEC}))
+        seconds=$((10#86400-${HOUR}*3600-${MIN}*60-${SEC}))
         sleep $seconds
 done
 
