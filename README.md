@@ -7,7 +7,7 @@ docker run -d --name leanote --restart=always -m 512M -e "SITEURL=[访问网址/
 ```
 *  管理员用户：admin / abc123
 *  体验用户：demo@leanote.com / demo@leanote.com
-*  默认网址路径 http://访问网址/IP:8000
+*  默认网址路径 http://访问网址或IP:8000
 
 ## 说明Description
 * 自动备份说明
