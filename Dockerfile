@@ -1,6 +1,4 @@
-#!/bin/bash
-
-FROM mongo@sha256:24a5c3cc152cfd311d68952f8d7b06f23a86edff485cfef7c232b926c66c95c7
+FROM mongo
 
 # Files Preparing
 COPY leanote-linux-arm-v2.6.1.bin.tar.gz /data/
