@@ -1,2 +1,27 @@
 # docker_leanote_n1
 基于ARM的leanote的docker，外置存储，自动定时备份
+
+## 使用Usage
+```
+docker run -d --name leanote --restart=always -m 512M -e "SITEURL=[访问网址/IP+端口]"-p 8000:9000 -v [宿主机储存路径]/leanotedata:/data hjh142857/n1_leanote
+```
+## 说明Description
+* 自动备份说明
+  * 备份路径设置在`[宿主机储存路径]/leanotedata/backup`下
+  * 自动备份时间为每天0点，备份保存7天，过期自动删除
+  * 一份备份共有两个文件
+    * mongodb_bak数据库备份，还原方法：清空数据库后重新导入   ！**清空前请注意备份**！
+    * Leanote_bak设置附件备份，还原方法：解压到`[宿主机储存路径]/leanotedata`下
+* 其中`-m 512M`为限制内存，防止dockers占用过多内存影响宿主机，可以自由调整，空载环境约占用100M内存
+* 一个必填ENV即SITEURL，填写为你的访问网址/IP+端口，需要注意的是，填写的是各种端口转发之后的网址+端口，比如用nginx转发到8080端口，即填写http://abc.com:8080
+* 请注意**Mongo的27017端口务必不暴露在公网**，本镜像未设置Mongo用户名密码
+
+## 目录结构
+[宿主机储存路径]/leanotedata 
+|
+|----backup     备份文件夹
+|----configdb   MongoDB目录，为空，不可删除
+|----db         MongoDB目录，为空，不可删除
+|----leanote    leanote目录，还原Leanote时即还原到此目录下
+  
+ 
