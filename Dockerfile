@@ -1,3 +1,5 @@
+#! /bin/bash
+
 FROM mongo@sha256:24a5c3cc152cfd311d68952f8d7b06f23a86edff485cfef7c232b926c66c95c7
 
 # Files Preparing
@@ -15,7 +17,7 @@ RUN tar zxf /data/leanote-linux-arm-v2.6.1.bin.tar.gz -C /data/; \
 	ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
 	rm -f /etc/timezone; \
 	echo "Asia/Shanghai" >> /etc/timezone; \
-    mkdir /data/backup
+	mkdir /data/backup
 	
 # Port Setting
 EXPOSE 9000
