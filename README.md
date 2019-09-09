@@ -7,7 +7,7 @@ docker run -d --name leanote --restart=always -m 512M -e "SITEURL=[访问网址/
 ```
 *  管理员用户：admin / abc123
 *  体验用户：demo@leanote.com / demo@leanote.com
-*  默认网址路径 http://url-or-ip:8000
+*  默认网址路径 http://访问网址/IP:8000
 
 ## 说明Description
 * 自动备份说明
@@ -19,7 +19,9 @@ docker run -d --name leanote --restart=always -m 512M -e "SITEURL=[访问网址/
 
 * 其中`-m 512M`为限制内存，防止dockers占用过多内存影响宿主机，可以自由调整，空载环境约占用100M内存
 
-* 一个**必填ENV SITEURL**，填写为你的访问网址/IP+端口，需要注意的是，填写的是各种端口转发之后的网址+端口，比如用nginx转发到8080端口，即填写http://abc.com:8080 ，如按照上述命令无端口转发填写`http://url:8000`即可。**不正确的填写会导致客户端无法同步图片等附件**。
+* Leanote默认端口为9000，因9000与N1小钢炮固件中partainer端口冲突，上述命令将端口映射到了8000
+
+* 一个**必填ENV SITEURL**，填写为你的访问网址/IP+端口，需要注意的是，填写的是各种端口转发之后的网址+端口，比如用nginx转发到8080端口，即填写http://abc.com:8080 ，如按照上述命令无其他端口转发请填写`http://url:8000`即可。**不正确的填写会导致客户端无法同步图片等附件**。
 
 * 请注意**Mongo的27017端口务必不暴露在公网**，本镜像未设置Mongo用户名密码
 
