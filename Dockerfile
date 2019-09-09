@@ -1,4 +1,4 @@
-FROM mongo:latest
+FROM arm64v8/mongo
 
 # Files Preparing
 COPY leanote-linux-arm-v2.6.1.bin.tar.gz /data/
