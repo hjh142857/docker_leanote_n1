@@ -7,7 +7,7 @@
 
 ## 使用Usage
 ```
-docker run -d --name leanote --restart=always -m 512M --cpus=1 -e "SITEURL=[访问网址/IP+端口]" -e "LANG=zh-cn" -e "DAYS=3" -p 8000:9000 -v [宿主机储存路径]/leanotedata:/data hjh142857/leanote_n1
+docker run -d --name leanote --restart=always -m 512M --cpus=1 -e SITEURL="[访问网址/IP+端口]" -e LANG="zh-cn" -e DAYS="3" -p 8000:9000 -v [宿主机储存路径]/leanotedata:/data hjh142857/leanote_n1
 ```
 *  管理员用户：admin / abc123
 *  体验用户：demo@leanote.com / demo@leanote.com
