@@ -4,6 +4,31 @@ set -e
 # Start MongoDB
 mongod &
 
+# Restore Leanote
+RESTORE_DIR=/data/restore
+if [ -f $RESTORE_DIR/leanote*.tar.gz ]; then
+        echo Restoring Leanote...
+        rm -rf /data/leanote
+        tar zxf $RESTORE_DIR/leanote*.tar.gz -C /data/
+        rm -f $RESTORE_DIR/leanote*.tar.gz
+        mkdir /data/backup >/dev/null 2>&1
+        echo Done
+fi
+
+# Restore MongoDB
+if [ -f $RESTORE_DIR/mongodb*.tar.gz ]; then
+        echo Restoring MongoDB...
+        mongo leanote --eval "db.dropDatabase()" 
+        tar zxf $RESTORE_DIR/mongodb*.tar.gz -C $RESTORE_DIR/
+        mongorestore -h localhost -d leanote --dir $RESTORE_DIR/leanote/
+        rm -rf $RESTORE_DIR/leanote
+        rm -f $RESTORE_DIR/mongodb*.tar.gz
+        echo "do not delete this file" >> /data/db/.do_not_delete
+        chmod 400 /data/db/.do_not_delete
+        mkdir /data/backup >/dev/null 2>&1
+        echo Done
+fi
+
 # Check Leanote state
 echo Checking Leanote status...
 if [ ! -d "/data/leanote" ]; then
@@ -13,7 +38,8 @@ if [ ! -d "/data/leanote" ]; then
         chmod a+x /data/leanote/bin/run.sh
         SECRET="`cat /dev/urandom | tr -dc A-Za-z0-9 | head -c64 | sed 's/[ \r\b]/a/g'`"
         sed -i "s/V85ZzBeTnzpsHyjQX4zukbQ8qqtju9y2aDM55VWxAH9Qop19poekx3xkcDVvrD0y/$SECRET/g" /data/leanote/conf/app.conf
-        mkdir /data/backup
+        mkdir /data/backup >/dev/null 2>&1
+        mkdir /data/restore >/dev/null 2>&1
 fi
 sed -i "48ci18n.default_language=$LANG" /data/leanote/conf/app.conf
 sed -i "11cadminUsername=$ADMINUSER" /data/leanote/conf/app.conf
@@ -37,19 +63,20 @@ echo `date "+%Y-%m-%d %H:%M:%S"`' >>>>>> start leanote service'
 /data/leanote/bin/run.sh &
 
 # Auto Backup
-BACKUP_DIR=/data/backup
-DAYS=7
-HOUR=`date "+%-H"`
-MIN=`date "+%-M"`
-SEC=`date "+%-S"`
-seconds=$((10#86400-${HOUR}*3600-${MIN}*60-${SEC}))
-echo ++++++++Start Counting $seconds s++++++++
-sleep $seconds
-while true; do
+if [ $DAYS -gt 0 ]; then
+        BACKUP_DIR=/data/backup
+        HOUR=`date "+%-H"`
+        MIN=`date "+%-M"`
+        SEC=`date "+%-S"`
+        seconds=$((10#86400-${HOUR}*3600-${MIN}*60-${SEC}))
+        echo ++++++++Start Counting $seconds s++++++++
+        sleep $seconds
+fi
+while [ $DAYS -gt 0 ]; do
         TIME=`date "+%Y%m%d_%H%M"`
         mongodump -h 127.0.0.1:27017 -d leanote -o $BACKUP_DIR/
-        tar -zcvf $BACKUP_DIR/mongodb_bak_$TIME.tar.gz $BACKUP_DIR/leanote
-        tar -zcvf $BACKUP_DIR/leanote_bak_$TIME.tar.gz /data/leanote
+        tar -zcvf $BACKUP_DIR/mongodb_bak_$TIME.tar.gz -C $BACKUP_DIR leanote
+        tar -zcvf $BACKUP_DIR/leanote_bak_$TIME.tar.gz -C /data leanote
         rm -rf $BACKUP_DIR/leanote
         find $BACKUP_DIR/ -mtime +$DAYS -delete
         HOUR=`date "+%H"`
