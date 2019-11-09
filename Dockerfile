@@ -4,6 +4,7 @@ FROM arm64v8/mongo
 ENV SITEURL=http://localhost:9000
 ENV ADMINUSER=admin
 ENV LANG=en-us
+ENV DAYS=3
 COPY leanote-linux-arm-v2.6.1.bin.tar.gz /data/
 COPY entrypoint.sh /usr/local/bin/
 
@@ -20,8 +21,9 @@ RUN tar zxf /data/leanote-linux-arm-v2.6.1.bin.tar.gz -C /data/; \
         ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
         rm -f /etc/timezone; \
         echo "Asia/Shanghai" >> /etc/timezone; \
-        # Backup DIR
+        # Backup & Restore DIR
         mkdir /data/backup; \
+        mkdir /data/restore; \
         # Script Initializing
         chmod a+x /usr/local/bin/entrypoint.sh
 
