@@ -4,31 +4,6 @@ set -e
 # Start MongoDB
 mongod &
 
-# Restore Leanote
-RESTORE_DIR=/data/restore
-if [ -f $RESTORE_DIR/leanote*.tar.gz ]; then
-        echo Restoring Leanote...
-        rm -rf /data/leanote
-        tar zxf $RESTORE_DIR/leanote*.tar.gz -C /data/
-        rm -f $RESTORE_DIR/leanote*.tar.gz
-        mkdir /data/backup >/dev/null 2>&1
-        echo Done
-fi
-
-# Restore MongoDB
-if [ -f $RESTORE_DIR/mongodb*.tar.gz ]; then
-        echo Restoring MongoDB...
-        mongo leanote --eval "db.dropDatabase()" 
-        tar zxf $RESTORE_DIR/mongodb*.tar.gz -C $RESTORE_DIR/
-        mongorestore -h localhost -d leanote --dir $RESTORE_DIR/leanote/
-        rm -rf $RESTORE_DIR/leanote
-        rm -f $RESTORE_DIR/mongodb*.tar.gz
-        echo "do not delete this file" >> /data/db/.do_not_delete
-        chmod 400 /data/db/.do_not_delete
-        mkdir /data/backup >/dev/null 2>&1
-        echo Done
-fi
-
 # Check Leanote state
 echo Checking Leanote status...
 if [ ! -d "/data/leanote" ]; then
@@ -57,6 +32,31 @@ if [ ! -f "/data/db/.do_not_delete" ]; then
         echo Done
 fi
 echo -e "\033[32mMongoDB is initialized \033[0m"
+
+# Restore Leanote
+RESTORE_DIR=/data/restore
+if [ -f $RESTORE_DIR/leanote*.tar.gz ]; then
+        echo Restoring Leanote...
+        cp /data/leanote/bin/leanote* $RESTORE_DIR
+        cp /data/leanote/bin/run* $RESTORE_DIR
+        rm -rf /data/leanote
+        tar zxf $RESTORE_DIR/leanote*.tar.gz -C /data/
+        rm -f $RESTORE_DIR/leanote*.tar.gz
+        mv $RESTORE_DIR/leanote* /data/leanote/bin
+        mv $RESTORE_DIR/run* /data/leanote/bin
+        echo Done
+fi
+
+# Restore MongoDB
+if [ -f $RESTORE_DIR/mongodb*.tar.gz ]; then
+        echo Restoring MongoDB...
+        mongo leanote --eval "db.dropDatabase()" 
+        tar zxf $RESTORE_DIR/mongodb*.tar.gz -C $RESTORE_DIR/
+        mongorestore -h localhost -d leanote --dir $RESTORE_DIR/leanote/
+        rm -rf $RESTORE_DIR/leanote
+        rm -f $RESTORE_DIR/mongodb*.tar.gz
+        echo Done
+fi
 
 # Start Leanote
 echo `date "+%Y-%m-%d %H:%M:%S"`' >>>>>> start leanote service'
