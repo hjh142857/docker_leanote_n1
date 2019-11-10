@@ -42,6 +42,8 @@ if [ -f $RESTORE_DIR/leanote*.tar.gz ]; then
         rm -rf /data/leanote
         tar zxf $RESTORE_DIR/leanote*.tar.gz -C /data/
         rm -f $RESTORE_DIR/leanote*.tar.gz
+        rm -f /data/leanote/bin/leanote*
+        rm -f /data/leanote/bin/run*
         mv $RESTORE_DIR/leanote* /data/leanote/bin
         mv $RESTORE_DIR/run* /data/leanote/bin
         echo Done
