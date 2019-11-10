@@ -18,8 +18,8 @@ docker run -d --name leanote --restart=always -m 512M --cpus=1 -e SITEURL="[访�
   * 备份路径设置在`[宿主机储存路径]/leanotedata/backup`下
   * 自动备份时间为每天0点，备份~~保存7天~~默认保存3天，可自行调整环境变量DAYS修改（修改为0关闭自动备份），过期自动删除
   * 一份备份共有两个文件
-    * mongodb_bak数据库备份，~~还原方法：清空数据库后重新导入   ！**清空前请注意备份**！~~
-    * Leanote_bak设置附件备份，~~还原方法：解压到`[宿主机储存路径]/leanotedata`下~~
+    * mongodb_bak为数据库备份，~~还原方法：清空数据库后重新导入   ！**清空前请注意备份**！~~
+    * Leanote_bak为附件备份，~~还原方法：解压到`[宿主机储存路径]/leanotedata`下~~
   * 还原/数据导入/迁移方法：
     * 从备份目录中复制出需要导入的一组mongodb和leanote两个tar.gz文件，粘贴到`[宿主机储存路径]/leanotedata/restore`目录下，然后重启docker
     * 还原/数据导入将 **清空原有数据，请注意备份**
