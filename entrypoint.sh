@@ -16,9 +16,6 @@ if [ ! -d "/data/leanote" ]; then
         mkdir /data/backup >/dev/null 2>&1
         mkdir /data/restore >/dev/null 2>&1
 fi
-sed -i "48ci18n.default_language=$LANG" /data/leanote/conf/app.conf
-sed -i "11cadminUsername=$ADMINUSER" /data/leanote/conf/app.conf
-sed -i "8csite.url=$SITEURL" /data/leanote/conf/app.conf
 echo -e "\033[32mLeanote is installed \033[0m"
 
 # Check mongodb data
@@ -59,6 +56,11 @@ if [ -f $RESTORE_DIR/mongodb*.tar.gz ]; then
         rm -f $RESTORE_DIR/mongodb*.tar.gz
         echo Done
 fi
+
+# Setting Leanote
+sed -i "48ci18n.default_language=$LANG" /data/leanote/conf/app.conf
+sed -i "11cadminUsername=$ADMINUSER" /data/leanote/conf/app.conf
+sed -i "8csite.url=$SITEURL" /data/leanote/conf/app.conf
 
 # Start Leanote
 echo `date "+%Y-%m-%d %H:%M:%S"`' >>>>>> start leanote service'
